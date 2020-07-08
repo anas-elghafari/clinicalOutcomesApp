@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Template Example</title>
+    
+     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    
+     
+  </head>
+  <body>
+    <div id="errorContainer">
+      <p>{{ message }}</p>
+    </div>
+    
+  <script>
+    var stuff;
+  $.get('/static/errorLog.txt', function (response) {
+    //alert("hello2")
+    stuff = response;
+    //alert(stuff)
+});
+    
+    /*
+    
+      $(document).ready(function() {
+        $.ajax({
+            url : "http://google.com"
+            dataType: "text",
+            success : function (data) {
+              alert("success!");
+              $("#errorContainer").html(data);
+            }
+        });
+    });
+    
+    
+    */
+    
+  </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+/*
+  were using Bootstrap and Font Awesome
+  https://bootstrapcdn.com
+*/
+
+/*body { padding-top:50px; } */
+
+.button {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px 10px;
+  cursor: pointer;
+}
+
+#pageHeader{
+  padding-top: 100px;
+  height: 180px ;
+  background-color: #f6f5f0;
+  position:relative;
+  text-align:center;
+}
+
+
+#toolNameContainer{
+  font-family: "Courier New", Courier, monospace;
+  margin:0;
+  top: 50%;
+  left: 50%; 
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+}
+
+/*#toolName {
+  text-align: center;
+}*/
+
+/*
+#inputDiv{
+  padding-top:380px;
+}*/
+
+#searchResult {
+  padding-top:30px;
+}
+
+
+#searchButton {
+  padding: 34px 40px;
+  background-color: #29abe0;
+  display: inline-block;
+} /* Blue */
+
+#clusterButton {
+  background-color: #CD5C5C;
+  border-radius: 12px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  display: inline-block;
+}
+
+#radioButtonDiv {
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 20px;
+}
+
+#searchButtonDiv{
+  padding-top: 25px;
+}
+
+#radioButtonDiv, #searchButtonDiv {
+   display: inline-block; 
+  /* float:left; */
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.showMoreLink{
+    color: black;
+}
+
+
+#clusterButtonDiv {
+  /* margin: auto; */
+  /*width: 40%; */
+  /*display: inline-block; */
+  border: 3px black;
+  padding-bottom:30px;
+}

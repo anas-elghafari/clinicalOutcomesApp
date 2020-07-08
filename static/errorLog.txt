@@ -1,0 +1,9 @@
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+172.18.0.1 - - [04/Jul/2020 03:43:09] "[37mGET / HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:43:12] "[37mGET / HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:44:25] "[37mGET /cond/Covid19 HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:44:26] "[36mGET /static/table2.css?version=48 HTTP/1.1[0m" 304 -
+172.18.0.1 - - [04/Jul/2020 03:44:26] "[37mGET /static/table2.js?version=18 HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:45:01] "[37mGET /clusterLDA HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:45:19] "[37mGET / HTTP/1.1[0m" 200 -
+172.18.0.1 - - [04/Jul/2020 03:45:36] "[37mGET /cond/Copd HTTP/1.1[0m" 200 -

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css" />
+
+
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table2.css', version=48) }}" />
+ 
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
+
+
+ <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='table2.js', version=18) }}"></script>
+
+</head>
+
+
+<body>
+  
+  
+
+  
+<div class="container">
+  
+  <div class="alert alert-info">
+    <p>Search query: <b>{{meta.query}}</b></p>
+    <p>Search type: <b>{{meta.searchType}}</b></p>
+    <p>Clinical trials found: <b>{{meta.count}}</b></p>
+  </div>
+  
+  
+  <!--
+  <form>
+     <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <div class="form-group" id="filterValDiv">
+          <input id= "filterVal" type="text" placeholder="Filter the outcomes by keyword (e.g. hospitalization)" ng-model="searchFish" onkeyup=filter()>
+       </div>
+       </div>
+  </form>
+  
+  -->
+  
+  
+  <!-- 
+  
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+  -->
+  
+      <div id="clusterButtonDiv">
+      <button type="button" class = "button" id="clusterButton"><b>Visualize Main Topics & Terms (LDA)</b></button>
+      </div>
+      
+      <div id="clusterButtonError">
+        
+      </div>
+    
+  <div id="tableContainer">
+  <table id="wholeTable" class="display table table-bordered table-striped">
+    
+    <thead>
+          <tr>
+          {% for h, wid in header %}
+          <td width={{wid}}><b>{{h}}</b></td>
+          {% endfor %}
+          </tr>
+    </thead>
+    
+    <tbody id = "outcomeTable">
+      {% for out, links in out_links %}
+      <tr>
+        <td>{{out}}</td>
+        <td>{{links|length}}</td>
+        {% set nctlinks = '' %}
+        {% for n in links %}
+        {% set nctlinks = nctlinks + n|safe %}
+        {% endfor %}
+        {% if links|length > 3 %}
+        
+        <td>{{links[:3]|join(" - ")|safe}} - <span class="dots">... </span><span class="restNCTs">{{links[3:]|join(" - ")|safe}} </span><a href ="#!" class="showMoreLink">show more</a></td>
+        {% else %}
+        <td>{{links|join(" - ")|safe}}</td>
+        {% endif %}
+        
+      </tr>
+        {% endfor %}
+    </tbody>
+    
+  </table>
+  </div>
+
+  
+  
+<style>
+
+.clickedShowMore{
+  color:black;
+}
+
+#filterValDiv2 {
+  margin: auto;
+  width:80%;
+  border:5px blue;
+  color:red;
+}
+  
+</style>
+
+<script>
+  
+$(document).ready( function () {
+$('#clusterButton').click(function() {
+  //alert("cluster button clicked");
+    
+  $("#tableContainer").hide();
+  $("#clusterStatus").html("<b> Running topic modelling on the top outcomes...<br>Generating the visualization...</b>");
+
+  
+  $.ajax({
+      url: "/clusterLDA",
+      type: "get",
+      success: function(response) {
+        $("#clusterResContainer").html(response);
+        $("#clusterButton").html("<b>Back to Showing Individual Outcomes</b>");
+        $("#clusterStatus").html("<b>Topic modelling done using Scikit-learn. Visualization generated using pyLDAvis.</b>")
+        $("#clusterButton").addClass("clusterPushed");
+      },
+      error: function(xhr, textStatus) {
+       $("#clusterButtonError").html("<b>" + textStatus.toUpperCase() + "</b>");
+      },
+      timeout: 60000
+    })
+  
+});
+})
+
+
+
+$('.clusterPushed').click(function() {
+  //alert("cluster button clicked");
+  //$("#clusterResContainer").hide();
+  $("#tableContainer").show();
+  //$("#clusterButton").html("<b>Cluster Outcomes</b>");
+  //$("#clusterButton").removeClass("clusterPushed");
+  
+});
+
+</script>
+
+</div>
+</body>
+</html>

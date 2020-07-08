@@ -1,0 +1,2 @@
+<p>hello, this is the error log.
+here is another line </p>

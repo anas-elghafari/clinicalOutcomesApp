@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Previos Queries to The Site</title>
+    
+    
+  
+<style>
+  table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+​td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+​tr:nth-child(even) {
+  background-color: red;
+}
+</style>
+  </head>
+  <body>
+    <div id="tableContainer">
+      <table>
+        <tr id="tableHeader">
+          {% for h, wid in header %}
+          <th>{{h}}</th>
+          {% endfor %}
+        </tr>
+        
+        {% for ts, data in cache %}
+        <tr>
+          <td>{{ts}}</td>
+          {% for el in data %}
+          <td>{{el}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+        
+      </table>
+    </div>
+  </body>
+  
+</html>
+
+    

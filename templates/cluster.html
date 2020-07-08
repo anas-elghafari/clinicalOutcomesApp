@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Template Example</title>
+    
+     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slider.css', version=30) }}" />
+ 
+  </head>
+  <body>
+    
+    
+<h3>This feature is still being implemented</h3>
+
+<div id="rangeContainer">
+<div class="range">
+  <input type="range" min="0" max="2">
+  <div class="ticks">
+    <!-- You could generate the ticks based on your min, max & step values. -->
+    <span class="tick">Unigrams</span>
+    <span class="tick">Bigrams</span>
+    <span class="tick">Trigrams</span>
+  </div>
+</div>
+</div>
+</body>
+</html>

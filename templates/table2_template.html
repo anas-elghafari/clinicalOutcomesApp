@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Automated CDE Analysis
+</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css" />
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table2.css', version=79) }}" />
+
+
+ <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+<!-- <script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='table2.js', version=17) }}"></script> -->
+
+
+</head>
+
+
+<body>
+  
+  <div id="pageHeader">
+    <div id="toolNameContainer">
+    <h1 id="toolName">CDE Identification Pipeline</h1>
+    </div>
+  </div>
+  
+  <form id ="inputForm">
+    <div class="form-group" id="inputDiv">
+    <b id="searchPrompt">Enter a medical condition/term to analyze the relevant clinical trials</b><br><br>
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input id= "queryInput" type="text" class="form-control" placeholder="(e.g. 'Covid-19')">
+      </div>   
+      <div id="radioButtonDiv">
+      <input type="radio" id="cond" name="searchtype" value="cond" checked>
+     <label for="cond">Condition Search</label><br>
+       <input type="radio" id="term" name="searchtype" value="term">
+        <label for="term">Term Search</label><br>
+        </div>
+      <div id="searchButtonDiv">
+      <button type="submit" class="button" id="searchButton" onclick="clickFun(); return false;"><b>Search ClinicalTrials.gov</b></button>
+
+      </div>
+    </div>
+  </form>
+  
+    <div id="searchResult">
+  
+    </div>
+    
+    <div id="logContainer">
+      <div id="fetchingMessage">
+      </div>
+      <div id="logFileDiv">
+      </div>
+    </div>
+    
+    <div id="errorContainer">
+      <div id="errorHeader"> </div>
+      <div id= "errorLogDiv"> </div>
+    </div>
+    
+    <div id="clusterStatus">
+      
+    </div>
+
+   <div id="clusterResContainer">
+   </div>
+   
+   
+   
+   <div id="footer">CDE Identification Pipeline is implemented in Python using Flask as the web framework, Scikit-learn for topic modeling, and pyLDAvis for visualization. The front-end is implemented in pure JavaScript and jQuery.<br><br>
+   Design & Implementation: <a href="https://github.com/anas-elghafari" target="_blank" >Anas Elghafari </a>-- Conception & Supervision: <a href= "https://www.mountsinai.org/profiles/joseph-finkelstein" target="_blank">Dr. Joseph Finkelstein </a>
+   
+   </div>
+   
+
+  <script>
+
+
+  /*
+  
+  $(document).ready(function() {
+    $("#testButton").click(
+    function() {
+        $.ajax({
+            url : "/static/errorLog.txt",
+            dataType: "text",
+            success : function (data) {
+              alert(data);
+              $(".p").loa(data);
+            }
+        });
+    });
+  })
+*/
+
+  //alert("hello2!");
+// Reading data in utf-8 format 
+// which is a type of character set. 
+// Instead of 'utf-8' it can be  
+// other character set also like 'ascii' 
+  
+  // alert("hello!");
+  //$.ajax.get({{url_for('static', filename='errorLog.txt')}} , function(data) {
+ //   alert("hello3")
+  // alert(data)
+//}, 'text');
+ // var errtext = load("/logs/errorLog.txt")
+  //$("#errorContainer").html(load("/logs/errorLog.txt"))
+  
+  
+
+
+
+
+ // $(document).ready(function(){
+ //   $('#queryInput').keypress(function(e){
+ //     if(e.keyCode==13)
+ //     $('#searchButton').click();
+      
+ //   });
+ // });
+
+function clickFun(){
+    
+    $("#errorContainer").hide();
+    $("#logContainer").show()
+    $("#fetchingMessage").html("<b>Parsing results from ClinicalTrials.gov -- This might take up to 2 minute...</b>")
+    
+    //setInterval( function() {  $("#logFileDiv").load("/static/progressLog.txt")}, 1000);
+      
+    
+     var searchType = $("[name='searchtype']:checked").val();
+     var query = $("#queryInput").val();
+     //alert(searchType);
+     //alert(query)
+     $.ajax({
+      url: "/" + searchType + "/" + query,
+      type: "get",
+      success: function(response) {
+        $("#logContainer").hide()
+        $("#searchResult").html(response);
+      },
+      error: function(xhr, textStatus) {
+        $("#logContainer").hide();
+        $("#errorContainer").show();
+       $("#errorHeader").html("<b>" + textStatus.toUpperCase() + "</b><br>Error encountered. Please refresh the page and try again.");
+       //setInterval( function() {  $("#errorLogDiv").load("/static/errorLog.txt")}, 1000); 
+      },
+      timeout: 120000
+    })
+  }
+
+
+//var input = document.getElementById("inputDiv");
+//input.addEventListener("keyup", function(event) {
+// if (event.keyCode === 13) {
+//   document.getElementById("searchButton").click(clickFun);
+//  }
+// });
+  
+//$("#searchButton").click(clickFun);
+  
+
+  </script>
+  
+  
+<style>
+  
+#logContainer, #errorContainer, #clusterStatus{
+  margin: auto;
+  width: 50%;
+  border: 3px black;
+  /*padding: 10px; */
+}
+
+
+#inputForm{
+  margin: auto;
+  padding-top:50px;
+  width: 50%;
+}
+
+#errorContainer{
+  color: red;
+}
+
+#clusterStatus{
+  padding-bottom:30px;
+}
+
+#clusterResContainer{
+  margin:auto;
+  width:100%;
+}
+
+#footer{
+  margin: auto;
+  width: 80%;
+  padding-top:60px;
+  font-size:13px;
+}
+</style>
+</body>
+</html>
